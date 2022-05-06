@@ -44,9 +44,9 @@ namespace Statistics
         {
             if (numbers != null && numbers.Count > 0) {
                 var max = numbers.Max();
-                if (max > MaxThreshold)
+                if (max > MaxThreshold && Alerters != null)
                 {
-                    foreach(var alerter in alerters) {
+                    foreach(var alerter in Alerters) {
                         alerter.SendAlert();
                     }                    
                 }
