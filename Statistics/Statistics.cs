@@ -6,7 +6,7 @@ namespace Statistics
 {
     public class StatsComputer
     {
-        public Stats CalculateStatistics(List<float> numbers) {
+        public Stats CalculateStatistics(List<double> numbers) {
             var stats = new Stats();
            if (numbers != null && numbers.Count > 0) {
                stats.average = numbers.Average();
@@ -31,16 +31,16 @@ namespace Statistics
     
     public class StatsAlerter 
     {
-        private readonly float MaxThreshold;
+        private readonly double MaxThreshold;
         private readonly IAlerter[] Alerters;
         
-        public StatsAlerter(float maxThreshold, IAlerter[] alerters)
+        public StatsAlerter(double maxThreshold, IAlerter[] alerters)
         {
             MaxThreshold = maxThreshold;
             Alerters = alerters;
         }
         
-        public void checkAndAlert(List<float> numbers)
+        public void checkAndAlert(List<double> numbers)
         {
             if (numbers != null && numbers.Count > 0) {
                 var max = numbers.Max();
