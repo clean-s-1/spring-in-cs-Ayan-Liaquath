@@ -28,4 +28,54 @@ namespace Statistics
         public double max { get; set; }
         public double min { get; set; }
     }
+    
+    public class StatsAlerter 
+    {
+        private readonly float MaxThreshold;
+        private readonly IAlerter[] Alerters;
+        
+        public StatsAlerter(float maxThreshold, IAlerter[] alerters)
+        {
+            MaxThreshold = maxThreshold;
+            Alerters = alerters;
+        }
+        
+        public void checkAndAlert(List<float> numbers)
+        {
+            if (numbers != null && numbers.Count > 0) {
+                var max = numbers.Max();
+                if (max > MaxThreshold)
+                {
+                    foreach(var alerter in alerters) {
+                        alerter.SendAlert();
+                    }                    
+                }
+            }            
+        }        
+    }   
+    
+    public class EmailAlert : IAlerter
+    {
+        public bool emailSent {get; set;} = false;
+        
+        public void SendAlert()
+        {
+            emailSent = true;
+        }
+    }
+    
+    public class LEDAlert : IAlerter
+    {
+        public bool ledGlows {get; set;} = false;
+        
+        public void SendAlert()
+        {
+            ledGlows = true;
+        }
+    }
+    
+    public interface IAlerter
+    {
+        void SendAlert();
+    }
 }
